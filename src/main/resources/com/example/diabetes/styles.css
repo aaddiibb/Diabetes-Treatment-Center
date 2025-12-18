@@ -1,0 +1,136 @@
+.root-container {
+    -fx-background-color: #0f172a;
+    -fx-font-family: "Segoe UI", Arial;
+}
+
+.title-large {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+}
+
+.title-medium {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+}
+
+.subtitle {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 16px;
+}
+
+.text-small {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 12px;
+}
+
+.form-label {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 13px;
+}
+
+.text-field {
+    -fx-background-color: #111827;
+    -fx-text-fill: #e5e7eb;
+    -fx-prompt-text-fill: #6b7280;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #374151;
+    -fx-padding: 8 10;
+}
+
+.text-area {
+    -fx-background-color: #111827;
+    -fx-text-fill: #e5e7eb;
+    -fx-prompt-text-fill: #6b7280;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #374151;
+}
+
+.text-area .content {
+    -fx-background-color: #111827;
+    -fx-background-radius: 10;
+}
+
+.primary-button {
+    -fx-background-color: #22c55e;
+    -fx-text-fill: #064e3b;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #16a34a;
+}
+
+.secondary-button {
+    -fx-background-color: #111827;
+    -fx-text-fill: #e5e7eb;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #374151;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #0b1220;
+    -fx-border-color: #4b5563;
+}
+
+.hyperlink {
+    -fx-text-fill: #60a5fa;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #93c5fd;
+}
+
+/* Cards used in lists (doctors/appointments) */
+.card {
+    -fx-background-color: #111827;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #374151;
+    -fx-padding: 14;
+}
+
+/* Small pill/badge (status) */
+.badge, .status-badge {
+    -fx-background-color: #374151;
+    -fx-text-fill: #e5e7eb;
+    -fx-padding: 6 12 6 12;
+    -fx-background-radius: 20;
+    -fx-font-weight: 700;
+}
+
+/* ScrollPane to match dark theme */
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Toggle buttons for doctor filter tabs */
+.toggle-button {
+    -fx-background-color: #111827;
+    -fx-text-fill: #e5e7eb;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #374151;
+    -fx-cursor: hand;
+    -fx-padding: 8 14;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #22c55e;
+    -fx-text-fill: #064e3b;
+    -fx-border-color: #22c55e;
+}

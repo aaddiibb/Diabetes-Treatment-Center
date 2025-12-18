@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.diabetes.LoginController"
+      alignment="CENTER"
+      spacing="20"
+      styleClass="root-container">
+
+    <padding>
+        <Insets top="50" right="80" bottom="50" left="80"/>
+    </padding>
+
+    <Label fx:id="titleLabel" text="Login" styleClass="title-large"/>
+
+    <VBox spacing="14" maxWidth="420">
+
+        <Label text="Email" styleClass="form-label"/>
+        <TextField fx:id="emailField"
+                   promptText="Enter your email"
+                   styleClass="text-field"/>
+
+        <Label text="Password" styleClass="form-label"/>
+        <PasswordField fx:id="passwordField"
+                       promptText="Enter your password"
+                       styleClass="text-field"/>
+
+        <Button fx:id="loginButton"
+                text="Login"
+                onAction="#handleLogin"
+                styleClass="primary-button"
+                prefHeight="40"
+                maxWidth="Infinity">
+            <VBox.margin>
+                <Insets top="16"/>
+            </VBox.margin>
+        </Button>
+
+        <HBox alignment="CENTER">
+            <Hyperlink fx:id="backLink"
+                       text="← Back to role selection"
+                       onAction="#handleBack"
+                       styleClass="hyperlink"/>
+        </HBox>
+    </VBox>
+
+</VBox>
