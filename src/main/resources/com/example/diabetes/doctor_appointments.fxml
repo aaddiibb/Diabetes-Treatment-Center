@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.diabetes.DoctorAppointmentsController"
+      spacing="14"
+      styleClass="root-container">
+
+    <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="backButton" text="← Back" onAction="#handleBack" styleClass="secondary-button"/>
+        <Label text="Appointments" styleClass="title-large"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh" styleClass="secondary-button"/>
+    </HBox>
+
+    <fx:define>
+        <ToggleGroup fx:id="filterGroup"/>
+    </fx:define>
+
+    <HBox spacing="10">
+        <ToggleButton fx:id="requestedTab" text="Requested" toggleGroup="$filterGroup" onAction="#handleFilterChange" selected="true"/>
+        <ToggleButton fx:id="scheduledTab" text="Scheduled" toggleGroup="$filterGroup" onAction="#handleFilterChange"/>
+        <ToggleButton fx:id="completedTab" text="Completed" toggleGroup="$filterGroup" onAction="#handleFilterChange"/>
+        <ToggleButton fx:id="allTab" text="All" toggleGroup="$filterGroup" onAction="#handleFilterChange"/>
+    </HBox>
+
+    <VBox fx:id="emptyState" spacing="10" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <Label text="No appointments found." styleClass="subtitle"/>
+    </VBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <content>
+            <VBox fx:id="appointmentsContainer" spacing="12">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>
