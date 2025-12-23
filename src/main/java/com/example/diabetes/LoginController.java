@@ -69,7 +69,7 @@ public class LoginController {
             Parent root = loader.load();
             AuthChoiceController controller = loader.getController();
             controller.setRole(role);
-
+// current stage/window
             Stage stage = (Stage) backLink.getScene().getWindow();
             Scene scene = new Scene(root, 800, 500);
             scene.getStylesheets().add(HelloApplication.class.getResource("styles.css").toExternalForm());

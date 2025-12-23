@@ -19,10 +19,7 @@
 
     <Label text="Diabetes Prediction System" styleClass="title-large"/>
 
-    <Text text="Welcome! Please select your role to continue"
-          styleClass="subtitle"
-          wrappingWidth="450"
-          textAlignment="CENTER"/>
+   
 
     <VBox spacing="20" alignment="CENTER">
         <Button fx:id="patientButton"
@@ -39,9 +36,5 @@
                 prefWidth="300"
                 prefHeight="55"/>
     </VBox>
-
-    <Text text="WELCOME"
-          styleClass="text-small"
-          textAlignment="CENTER"/>
 
 </VBox>

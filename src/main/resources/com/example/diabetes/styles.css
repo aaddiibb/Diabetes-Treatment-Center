@@ -14,22 +14,22 @@
     -fx-font-size: 18px;
     -fx-font-weight: 700;
 }
-
+/*jeta typpe kora hobe*/
 .subtitle {
     -fx-text-fill: #e5e7eb;
     -fx-font-size: 16px;
 }
-
+/*pls select a roll*/
 .text-small {
-    -fx-text-fill: #9ca3af;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 12px;
 }
-
+/*"Doctor Name:", "Clinic:", "Available Days:", "Patient Notes:"*/
 .form-label {
     -fx-text-fill: #e5e7eb;
     -fx-font-size: 13px;
 }
-
+/*Username field, password field, email field, search box*/
 .text-field {
     -fx-background-color: #111827;
     -fx-text-fill: #e5e7eb;
@@ -39,7 +39,7 @@
     -fx-border-color: #374151;
     -fx-padding: 8 10;
 }
-
+/*Patient Notes (optional)" field where you can type multiple lines*/
 .text-area {
     -fx-background-color: #111827;
     -fx-text-fill: #e5e7eb;
@@ -63,7 +63,7 @@
 }
 
 .primary-button:hover {
-    -fx-background-color: #16a34a;
+    -fx-background-color: #153e24;
 }
 
 .secondary-button {

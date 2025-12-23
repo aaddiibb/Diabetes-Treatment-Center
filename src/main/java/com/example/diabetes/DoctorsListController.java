@@ -86,10 +86,14 @@ public class DoctorsListController {
         name.getStyleClass().add("title-medium");
 
         Label spec = new Label(doctor.getSpecialty());
-        spec.getStyleClass().add("text-small");
+        spec.getStyleClass().addAll("text-small", "bright-text");
 
         Label clinic = new Label("Clinic: " + safe(doctor.getClinicAddress()));
+        clinic.getStyleClass().add("bright-text");
+        
         Label days = new Label("Available: " + safe(doctor.getAvailableDays()));
+        days.getStyleClass().add("bright-text");
+        
         Label email = new Label("Email: " + safe(doctor.getEmail()));
         email.getStyleClass().add("text-small");
 
