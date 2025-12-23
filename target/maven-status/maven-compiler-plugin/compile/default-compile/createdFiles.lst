@@ -1,8 +1,10 @@
+com\example\diabetes\DiabetesPredictionModel.class
 com\example\diabetes\SessionManager.class
 com\example\diabetes\AppointmentDAO.class
 com\example\diabetes\LoginController.class
 com\example\diabetes\AuthChoiceController$ControllerConsumer.class
 com\example\diabetes\DatabaseManager.class
+com\example\diabetes\PredictionController.class
 com\example\diabetes\RoleSelectionController.class
 com\example\diabetes\UIUtils.class
 com\example\diabetes\User.class
@@ -13,6 +15,7 @@ com\example\diabetes\AppointmentBookingController.class
 com\example\diabetes\UserDAO.class
 com\example\diabetes\RegisterController.class
 com\example\diabetes\DoctorAppointmentsController.class
+com\example\diabetes\PredictionResult.class
 com\example\diabetes\DoctorInterfaceController.class
 com\example\diabetes\PatientAppointmentsController.class
 com\example\diabetes\DoctorDAO.class

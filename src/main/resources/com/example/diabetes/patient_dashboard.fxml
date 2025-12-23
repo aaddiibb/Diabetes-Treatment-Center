@@ -31,6 +31,12 @@
             styleClass="primary-button"
             prefWidth="260" prefHeight="50"/>
 
+    <Button fx:id="predictionButton"
+            text="Start Prediction"
+            onAction="#handleStartPrediction"
+            styleClass="primary-button"
+            prefWidth="260" prefHeight="50"/>
+
     <Button text="Logout"
             onAction="#handleLogout"
             styleClass="secondary-button"

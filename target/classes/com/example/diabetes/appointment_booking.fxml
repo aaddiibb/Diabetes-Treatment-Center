@@ -24,13 +24,13 @@
         <Label fx:id="doctorNameLabel" text="-" styleClass="subtitle"/>
 
         <Label text="Specialty:" styleClass="form-label"/>
-        <Label fx:id="doctorSpecialtyLabel" text="-" />
+        <Label fx:id="doctorSpecialtyLabel" text="-" style="-fx-text-fill: #00e5ff; -fx-font-size: 13;"/>
 
         <Label text="Clinic:" styleClass="form-label"/>
-        <Label fx:id="doctorClinicLabel" text="-" wrapText="true"/>
+        <Label fx:id="doctorClinicLabel" text="-"  style="-fx-text-fill: #00e5ff; -fx-font-size: 13;"/>
 
         <Label text="Available Days:" styleClass="form-label"/>
-        <Label fx:id="doctorAvailabilityLabel" text="-" />
+        <Label fx:id="doctorAvailabilityLabel" text="-" style="-fx-text-fill: #00ff88; -fx-font-size: 13;"/>
     </VBox>
 
     <Label text="Patient Notes (optional)" styleClass="form-label"/>

@@ -19,6 +19,13 @@ public class RegisterController {
     @FXML private TextField phoneField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
+    
+    // Email requirement check label
+    @FXML private Label gmailCheckLabel;
+    
+    // Password requirement check labels
+    @FXML private Label minLengthCheckLabel;
+    @FXML private Label capitalLetterCheckLabel;
 
     // Doctor-only section
     @FXML private VBox doctorFieldsBox;
@@ -46,6 +53,81 @@ public class RegisterController {
             doctorFieldsBox.setManaged(false);
             doctorFieldsBox.setVisible(false);
         }
+        
+        // Add real-time email validation listener
+        if (emailField != null) {
+            emailField.textProperty().addListener((obs, oldVal, newVal) -> {
+                validateEmail(newVal);
+            });
+        }
+        
+        // Add real-time password validation listener
+        if (passwordField != null) {
+            passwordField.textProperty().addListener((obs, oldVal, newVal) -> {
+                validatePasswordRequirements(newVal);
+            });
+        }
+    }
+    
+    /**
+     * Validates email and updates UI indicator
+     */
+    private void validateEmail(String email) {
+        boolean isGmailValid = email.toLowerCase().contains("@gmail.com");
+        
+        if (gmailCheckLabel != null) {
+            if (isGmailValid) {
+                gmailCheckLabel.setText("✓");
+                gmailCheckLabel.setStyle("-fx-font-size: 16; -fx-text-fill: #4caf50;");
+            } else {
+                gmailCheckLabel.setText("✗");
+                gmailCheckLabel.setStyle("-fx-font-size: 16; -fx-text-fill: #d32f2f;");
+            }
+        }
+    }
+    
+    /**
+     * Checks if email is valid (must be gmail)
+     */
+    private boolean isEmailValid(String email) {
+        return email.toLowerCase().contains("@gmail.com");
+    }
+    
+    /**
+     * Validates password requirements and updates UI indicators
+     */
+    private void validatePasswordRequirements(String password) {
+        boolean hasMinLength = password.length() >= 8;
+        boolean hasCapitalLetter = password.matches(".*[A-Z].*");
+        
+        // Update minimum length indicator
+        if (minLengthCheckLabel != null) {
+            if (hasMinLength) {
+                minLengthCheckLabel.setText("✓");
+                minLengthCheckLabel.setStyle("-fx-font-size: 16; -fx-text-fill: #4caf50;");
+            } else {
+                minLengthCheckLabel.setText("✗");
+                minLengthCheckLabel.setStyle("-fx-font-size: 16; -fx-text-fill: #d32f2f;");
+            }
+        }
+        
+        // Update capital letter indicator
+        if (capitalLetterCheckLabel != null) {
+            if (hasCapitalLetter) {
+                capitalLetterCheckLabel.setText("✓");
+                capitalLetterCheckLabel.setStyle("-fx-font-size: 16; -fx-text-fill: #4caf50;");
+            } else {
+                capitalLetterCheckLabel.setText("✗");
+                capitalLetterCheckLabel.setStyle("-fx-font-size: 16; -fx-text-fill: #d32f2f;");
+            }
+        }
+    }
+    
+    /**
+     * Checks if password meets all requirements
+     */
+    private boolean isPasswordValid(String password) {
+        return password.length() >= 8 && password.matches(".*[A-Z].*");
     }
 
     @FXML
@@ -61,6 +143,19 @@ public class RegisterController {
                 UIUtils.showError("Validation Error", "Please fill all required fields.");
                 return;
             }
+            
+            // Validate email format (must be gmail)
+            if (!isEmailValid(email)) {
+                UIUtils.showError("Validation Error", "Email must be a Gmail account (include @gmail.com).");
+                return;
+            }
+            
+            // Validate password requirements
+            if (!isPasswordValid(pass)) {
+                UIUtils.showError("Validation Error", "Password must be at least 8 characters and contain at least one capital letter.");
+                return;
+            }
+            
             if (!pass.equals(confirm)) {
                 UIUtils.showError("Validation Error", "Passwords do not match.");
                 return;

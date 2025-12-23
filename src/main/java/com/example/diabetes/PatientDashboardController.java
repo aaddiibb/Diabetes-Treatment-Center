@@ -9,6 +9,7 @@ public class PatientDashboardController {
     @FXML private Label titleLabel;
     @FXML private Button bookAppointmentButton;
     @FXML private Button myAppointmentsButton;
+    @FXML private Button predictionButton;
 
     @FXML
     private void handleBookAppointment() {
@@ -38,6 +39,16 @@ public class PatientDashboardController {
     private void handleMyAppointments() {
         try {
             UIUtils.switchScene(myAppointmentsButton, "patient_appointments.fxml", "My Appointments");
+        } catch (Exception e) {
+            e.printStackTrace();
+            UIUtils.showError("Navigation Error", String.valueOf(e));
+        }
+    }
+
+    @FXML
+    private void handleStartPrediction() {
+        try {
+            UIUtils.switchScene(predictionButton, "prediction.fxml", "Diabetes Risk Prediction");
         } catch (Exception e) {
             e.printStackTrace();
             UIUtils.showError("Navigation Error", String.valueOf(e));

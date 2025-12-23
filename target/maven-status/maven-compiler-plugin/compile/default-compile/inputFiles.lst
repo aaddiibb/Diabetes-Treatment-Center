@@ -3,6 +3,7 @@ E:\New folder\Diabetes\src\main\java\com\example\diabetes\AppointmentBookingCont
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\AppointmentDAO.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\AuthChoiceController.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\DatabaseManager.java
+E:\New folder\Diabetes\src\main\java\com\example\diabetes\DiabetesPredictionModel.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\Doctor.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\DoctorAppointmentsController.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\DoctorDAO.java
@@ -13,6 +14,8 @@ E:\New folder\Diabetes\src\main\java\com\example\diabetes\LoginController.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\PasswordUtils.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\PatientAppointmentsController.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\PatientDashboardController.java
+E:\New folder\Diabetes\src\main\java\com\example\diabetes\PredictionController.java
+E:\New folder\Diabetes\src\main\java\com\example\diabetes\PredictionResult.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\RegisterController.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\RoleSelectionController.java
 E:\New folder\Diabetes\src\main\java\com\example\diabetes\SessionManager.java
