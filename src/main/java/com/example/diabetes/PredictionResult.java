@@ -44,4 +44,8 @@ public class PredictionResult {
         sb.append(String.format("\nPrediction Confidence: %.2f%%", riskPercentage));
         return sb.toString();
     }
+
+    public double[] getOriginalValues() {
+        return inputValues;
+    }
 }

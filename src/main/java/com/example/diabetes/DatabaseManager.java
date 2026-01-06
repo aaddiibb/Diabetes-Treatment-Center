@@ -62,10 +62,31 @@ public class DatabaseManager {
                 );
                 """;
 
+        String predictionHistory = """
+                CREATE TABLE IF NOT EXISTS prediction_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    prediction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    risk_percentage REAL NOT NULL,
+                    risk_level TEXT NOT NULL,
+                    pregnancies INTEGER,
+                    glucose REAL,
+                    blood_pressure REAL,
+                    skin_thickness REAL,
+                    insulin REAL,
+                    bmi REAL,
+                    dpf REAL,
+                    age INTEGER,
+                    notes TEXT,
+                    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+                );
+                """;
+
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(users);
             stmt.execute(doctors);
             stmt.execute(appointments);
+            stmt.execute(predictionHistory);
             
             // Only seed if this is a new database (no users exist)
             try (ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS c FROM users")) {

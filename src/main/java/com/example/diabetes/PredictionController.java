@@ -25,6 +25,7 @@ public class PredictionController {
     @FXML private VBox resultContainer;
 
     private final DiabetesPredictionModel predictionModel = new DiabetesPredictionModel();
+    private final PredictionHistoryDAO historyDAO = new PredictionHistoryDAO();
 
     @FXML
     private void handlePredict() {
@@ -167,7 +168,7 @@ public class PredictionController {
 
         // Title
         Label resultTitle = new Label("Prediction Results for " + name);
-        resultTitle.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2C3E50;");
+        resultTitle.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #F0F0F0;");
 
         // Risk Label
         Label riskLabel = new Label("Diabetes Risk: " + result.getRiskPercentage() + "%");
@@ -181,7 +182,7 @@ public class PredictionController {
 
         // Recommendation
         Label recommendationLabel = new Label("Recommendation: " + result.getRecommendation());
-        recommendationLabel.setStyle("-fx-font-size: 12; -fx-text-fill: #333333; -fx-wrap-text: true;");
+        recommendationLabel.setStyle("-fx-font-size: 12; -fx-text-fill: #E0E0E0; -fx-wrap-text: true;");
         recommendationLabel.setWrapText(true);
 
         // Separator
@@ -189,12 +190,13 @@ public class PredictionController {
 
         // Details
         Label detailsLabel = new Label("Input Summary:");
-        detailsLabel.setStyle("-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #555555;");
+        detailsLabel.setStyle("-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #E0E0E0;");
 
         TextArea detailsArea = new TextArea();
         detailsArea.setEditable(false);
         detailsArea.setWrapText(true);
         detailsArea.setPrefRowCount(6);
+        detailsArea.setStyle("-fx-control-inner-background: #333333; -fx-text-fill: #F0F0F0; -fx-font-size: 11;");
         detailsArea.setText(result.getDetailsString());
 
         resultContainer.getChildren().addAll(resultTitle, riskLabel, predictionLabel, 
@@ -212,8 +214,25 @@ public class PredictionController {
                 System.out.println("DEBUG: Saving prediction for user: " + currentUser.getId());
                 System.out.println("DEBUG: Risk Level: " + (result.isDiabetic() ? "HIGH" : "LOW"));
                 System.out.println("DEBUG: Risk Percentage: " + result.getRiskPercentage());
-                // In a real application, you would save this to a database
-                // For now, we just log it
+                
+                // Save to prediction history
+                double[] values = result.getOriginalValues();
+                PredictionHistory history = new PredictionHistory(
+                        currentUser.getId(),
+                        java.time.LocalDateTime.now(),
+                        result.getRiskPercentage(),
+                        result.isDiabetic() ? "HIGH RISK" : "LOW RISK",
+                        (int) values[0], // pregnancies
+                        values[1], // glucose
+                        values[2], // blood pressure
+                        values[3], // skin thickness
+                        values[4], // insulin
+                        values[5], // bmi
+                        values[6], // dpf
+                        (int) values[7]  // age
+                );
+                
+                historyDAO.savePrediction(history);
             }
         } catch (Exception e) {
             e.printStackTrace();

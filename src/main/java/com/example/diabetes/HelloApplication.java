@@ -21,10 +21,12 @@ public class HelloApplication extends Application {
                 HelloApplication.class.getResource("styles.css").toExternalForm()
         );
 
-        stage.setTitle("Diabetes Prediction System");
+        stage.setTitle("Diabetes Treatment Center");
         stage.setScene(scene);
 
-        stage.setOnCloseRequest(e -> DatabaseManager.getInstance().close());
+        stage.setOnCloseRequest(
+
+                e -> DatabaseManager.getInstance().close());
         stage.show();
     }
 

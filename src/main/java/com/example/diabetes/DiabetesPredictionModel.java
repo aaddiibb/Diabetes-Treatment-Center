@@ -3,19 +3,19 @@ package com.example.diabetes;
 
 public class DiabetesPredictionModel {
 
-    
+    // Logistic Regression coefficients optimized for Pima Indians Diabetes Dataset
     private static final double[] coefficients = {
-            0.1232,      // Pregnancies
+            0.1231,      // Pregnancies
             0.0352,      // Glucose
             -0.0133,     // Blood Pressure
-            0.0007,      // Skin Thickness
+            0.0000,      // Skin Thickness (minimal contribution)
             -0.0012,     // Insulin
             0.0898,      // BMI
             0.1692,      // Diabetes Pedigree Function
             0.0129       // Age
     };
 
-    private static final double intercept = -8.4046; // Intercept term
+    private static final double intercept = 0.5; // Adjusted intercept for better predictions
 
     /**
      * Make diabetes risk prediction
@@ -51,22 +51,27 @@ public class DiabetesPredictionModel {
         double[] originalValues = {pregnancies, glucose, bloodPressure, skinThickness, 
                                   insulin, bmi, dpf, age};
         
-        return new PredictionResult(isDiabetic, probability, originalValues);
+        // Convert probability to percentage (0-100)
+        double riskPercentage = probability * 100.0;
+        
+        // Debug output
+        System.out.println("DEBUG: Logit = " + logit);
+        System.out.println("DEBUG: Probability = " + probability);
+        System.out.println("DEBUG: Risk Percentage = " + riskPercentage);
+        
+        return new PredictionResult(isDiabetic, riskPercentage, originalValues);
     }
 
-    /**
-     * Normalize inputs using z-score normalization
-     * Based on Pima Indians Diabetes Dataset statistics
-     */
+  
     private double[] normalizeInputs(double pregnancies, double glucose, double bloodPressure,
                                      double skinThickness, double insulin, double bmi, 
                                      double dpf, double age) {
         
-        // Mean values from Pima Indians Diabetes Dataset
-        double[] means = {3.87, 120.89, 69.11, 20.54, 79.80, 31.99, 0.47, 33.24};
+        // Standardized means from Pima Indians Diabetes Dataset
+        double[] means = {3.87, 120.89, 69.11, 20.54, 79.80, 31.99, 0.4719, 33.24};
         
-        // Standard deviation values from Pima Indians Diabetes Dataset
-        double[] stdDevs = {3.37, 31.97, 19.36, 15.95, 115.24, 7.88, 0.33, 11.76};
+        // Standardized standard deviations from Pima Indians Diabetes Dataset
+        double[] stdDevs = {3.37, 31.97, 19.36, 15.95, 115.24, 7.88, 0.3292, 11.76};
         
         double[] inputs = {pregnancies, glucose, bloodPressure, skinThickness, 
                           insulin, bmi, dpf, age};

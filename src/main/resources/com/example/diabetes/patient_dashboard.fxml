@@ -37,6 +37,12 @@
             styleClass="primary-button"
             prefWidth="260" prefHeight="50"/>
 
+    <Button fx:id="healthHistoryButton"
+            text="📊 Health Metrics History"
+            onAction="#handleViewHealthHistory"
+            styleClass="primary-button"
+            prefWidth="260" prefHeight="50"/>
+
     <Button text="Logout"
             onAction="#handleLogout"
             styleClass="secondary-button"
