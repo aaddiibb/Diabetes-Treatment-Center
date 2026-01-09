@@ -11,7 +11,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HealthHistoryController {
 
@@ -27,6 +30,10 @@ public class HealthHistoryController {
     @FXML private Button backBtn;
     @FXML private ComboBox<String> chartTypeCombo;
     @FXML private Label summaryLabel;
+    @FXML private DatePicker startDatePicker;
+    @FXML private DatePicker endDatePicker;
+    @FXML private Button filterButton;
+    @FXML private Button clearFilterButton;
 
     // Statistics labels - need to be declared as FXML injected
     private Label glucoseMinLabel, glucoseMaxLabel, glucoseAvgLabel;
@@ -312,5 +319,127 @@ public class HealthHistoryController {
             e.printStackTrace();
             UIUtils.showError("Navigation Error", String.valueOf(e));
         }
+    }
+
+    @FXML
+    private void handleFilter() {
+        try {
+            System.out.println("Filter button clicked");
+
+            // Check if data is loaded
+            if (userHistory == null || userHistory.isEmpty()) {
+                UIUtils.showError("No Data", "No prediction history available to filter.");
+                return;
+            }
+
+            LocalDate startDate = startDatePicker.getValue();
+            LocalDate endDate = endDatePicker.getValue();
+
+            System.out.println("Start Date: " + startDate);
+            System.out.println("End Date: " + endDate);
+
+            if (startDate == null && endDate == null) {
+                UIUtils.showInfo("Filter Required", "Please select at least one date (start or end) to filter.");
+                return;
+            }
+
+            if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
+                UIUtils.showError("Invalid Date Range", "Start date cannot be after end date.");
+                return;
+            }
+
+            // Filter the history list
+            List<PredictionHistory> filteredHistory = userHistory.stream()
+                .filter(history -> {
+                    LocalDate predictionDate = history.getPredictionDate().toLocalDate();
+                    boolean afterStart = (startDate == null) || !predictionDate.isBefore(startDate);
+                    boolean beforeEnd = (endDate == null) || !predictionDate.isAfter(endDate);
+                    return afterStart && beforeEnd;
+                })
+                .collect(Collectors.toList());
+
+            System.out.println("Filtered results: " + filteredHistory.size() + " out of " + userHistory.size());
+
+            // Update the table with filtered results
+            historyTable.getItems().clear();
+            historyTable.getItems().addAll(filteredHistory);
+
+            // Update summary for filtered results
+            updateSummaryLabel(filteredHistory);
+
+            if (filteredHistory.isEmpty()) {
+                UIUtils.showInfo("No Results", "No prediction history found in the selected date range.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            UIUtils.showError("Filter Error", "An error occurred while filtering: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleClearFilter() {
+        try {
+            System.out.println("Clear filter button clicked");
+
+            // Check if data is loaded
+            if (userHistory == null || userHistory.isEmpty()) {
+                UIUtils.showError("No Data", "No prediction history available.");
+                return;
+            }
+
+            // Clear date pickers
+            startDatePicker.setValue(null);
+            endDatePicker.setValue(null);
+
+            // Restore full history to table
+            historyTable.getItems().clear();
+            historyTable.getItems().addAll(userHistory);
+
+            // Update summary for all data
+            updateSummaryLabel(userHistory);
+
+            System.out.println("Filter cleared. Showing all " + userHistory.size() + " records.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            UIUtils.showError("Clear Filter Error", "An error occurred while clearing filter: " + e.getMessage());
+        }
+    }
+
+    private void updateSummaryLabel(List<PredictionHistory> historyList) {
+        if (historyList.isEmpty()) {
+            summaryLabel.setText("No data available");
+            return;
+        }
+
+        PredictionHistory latest = historyList.get(0);
+        double avgRisk = historyList.stream()
+            .mapToDouble(PredictionHistory::getRiskPercentage)
+            .average()
+            .orElse(0);
+
+        double minGlucose = historyList.stream()
+            .mapToDouble(PredictionHistory::getGlucose)
+            .min()
+            .orElse(0);
+
+        double maxGlucose = historyList.stream()
+            .mapToDouble(PredictionHistory::getGlucose)
+            .max()
+            .orElse(0);
+
+        double avgGlucose = historyList.stream()
+            .mapToDouble(PredictionHistory::getGlucose)
+            .average()
+            .orElse(0);
+
+        summaryLabel.setText(String.format(
+            "Total Predictions: %d | Latest Risk: %.2f%% | Average Risk: %.2f%% | Glucose Range: %.0f - %.0f (Avg: %.0f)",
+            historyList.size(),
+            latest.getRiskPercentage(),
+            avgRisk,
+            minGlucose,
+            maxGlucose,
+            avgGlucose
+        ));
     }
 }

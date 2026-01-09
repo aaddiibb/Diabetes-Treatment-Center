@@ -30,12 +30,12 @@ public class AppointmentDAO {
     }
 
     public List<Appointment> findByPatientId(int patientUserId) throws SQLException {
-        String sql = "SELECT * FROM appointments WHERE patient_user_id=? ORDER BY id DESC";
+        String sql = "SELECT * FROM appointments WHERE patient_user_id=? AND status != 'CANCELLED' ORDER BY id DESC";
         return list(sql, patientUserId);
     }
 
     public List<Appointment> findByDoctorId(int doctorUserId) throws SQLException {
-        String sql = "SELECT * FROM appointments WHERE doctor_user_id=? ORDER BY id DESC";
+        String sql = "SELECT * FROM appointments WHERE doctor_user_id=? AND status != 'CANCELLED' ORDER BY id DESC";
         return list(sql, doctorUserId);
     }
 
@@ -61,6 +61,15 @@ public class AppointmentDAO {
             ps.setString(2, scheduledAt);
             ps.setString(3, doctorNote);
             ps.setInt(4, appointmentId);
+            ps.executeUpdate();
+        }
+    }
+
+    public void cancelAppointment(int appointmentId) throws SQLException {
+        String sql = "UPDATE appointments SET status='CANCELLED' WHERE id=?";
+        try (Connection c = DatabaseManager.getInstance().getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, appointmentId);
             ps.executeUpdate();
         }
     }

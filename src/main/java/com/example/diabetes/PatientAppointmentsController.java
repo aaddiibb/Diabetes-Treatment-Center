@@ -2,12 +2,16 @@ package com.example.diabetes;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PatientAppointmentsController {
 
@@ -94,6 +98,19 @@ public class PatientAppointmentsController {
             card.getChildren().add(dn);
         }
 
+        // Add cancel button for appointments that are not already completed or cancelled
+        if (!"COMPLETED".equals(a.getStatus()) && !"CANCELLED".equals(a.getStatus())) {
+            Button cancelBtn = new Button("Cancel Appointment");
+            cancelBtn.getStyleClass().add("danger-button");
+            cancelBtn.setPrefWidth(200);
+            cancelBtn.setPrefHeight(40);
+            cancelBtn.setOnAction(e -> handleCancelAppointment(a));
+
+            HBox buttonBox = new HBox(cancelBtn);
+            buttonBox.setPadding(new Insets(10, 0, 0, 0));
+            card.getChildren().add(buttonBox);
+        }
+
         return card;
     }
 
@@ -108,6 +125,36 @@ public class PatientAppointmentsController {
 
     private String safe(String s) { return (s == null || s.isBlank()) ? "-" : s; }
 
+    private void handleCancelAppointment(Appointment a) {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Cancel Appointment");
+        confirmAlert.setHeaderText("Are you sure you want to cancel this appointment?");
+        confirmAlert.setContentText("This action cannot be undone.");
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                appointmentDAO.cancelAppointment(a.getId());
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Appointment Cancelled");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Your appointment has been cancelled successfully.");
+                successAlert.showAndWait();
+
+                // Reload the appointments list
+                load();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Failed to cancel appointment");
+                errorAlert.setContentText("An error occurred. Please try again.");
+                errorAlert.showAndWait();
+            }
+        }
+    }
+
     @FXML
     private void handleBack() {
         try {
@@ -117,3 +164,4 @@ public class PatientAppointmentsController {
         }
     }
 }
+

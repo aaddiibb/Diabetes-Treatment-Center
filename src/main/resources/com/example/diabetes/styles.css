@@ -134,3 +134,16 @@
     -fx-text-fill: #064e3b;
     -fx-border-color: #22c55e;
 }
+
+.danger-button {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #991b1b;
+}
+
